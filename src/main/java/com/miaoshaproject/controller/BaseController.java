@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseController {
+    public final static String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
+
     //定义exceptionhandler解决未被controller吸收的exception
     @ExceptionHandler(Exception.class)
     //捕获异常后返回正常的错误码 而不是500服务端无法解决的错误码
