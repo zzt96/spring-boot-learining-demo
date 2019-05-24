@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.PARAMTER_VALIDATION_ERROR,result.getErrMsg());
         }
 
-        //实现model-》data object 的方法 insertSelective的方法不会覆盖掉默认值 详见userPasswordDOMapper.xml
+        //实现model->data object 的方法 insertSelective的方法不会覆盖掉默认值 详见userPasswordDOMapper.xml
         UserDO userDO = convertFromModel(userModel);
         try{
             userDOMapper.insertSelective(userDO);
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.PARAMTER_VALIDATION_ERROR,"手机号已重复注册");
         }
 
-
+        //自动生成id 自增
         userModel.setId(userDO.getId());
 
         UserPasswordDO userPasswordDO =convertPasswordFromModel(userModel);
