@@ -18,7 +18,7 @@ public class ItemModel {
     private BigDecimal price;
 
     //商品库存
-    @NotBlank(message = "商品库存不能为空")
+    @NotNull(message = "商品库存不能为空")
     private Integer itemStock;
 
     //商品描述
