@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -84,9 +85,17 @@ public class ItemServiceImpl implements ItemService {
         itemStockDO.setStock(itemModel.getItemStock());
         return itemStockDO;
     }
+
+    //获取商品列表
     @Override
     public List<ItemModel> listItem() {
-        return null;
+        List<ItemDO> itemDOList = itemDOMapper.listItem();//from item order by sales DESC;倒序获得所有的商品列表
+        List<ItemModel> itemModelList = itemDOList.stream().map(itemDO -> { // 遍历出itemModel 并和item Stock组合成data object
+            ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
+           ItemModel itemModel = this.convertModelFromDataObject(itemDO,itemStockDO);
+           return itemModel;
+        }).collect(Collectors.toList());//转化为list
+        return itemModelList;
     }
 
     @Override
@@ -102,6 +111,37 @@ public class ItemServiceImpl implements ItemService {
         ItemModel itemModel = convertModelFromDataObject(itemDO,itemStockDO);
 
         return itemModel;
+    }
+
+    /**
+     * 减库存操作
+     * 操作item_stock表
+     * @param itemId
+     * @param amount
+     * @return
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional
+    public boolean decreaseStock(Integer itemId, Integer amount) throws BusinessException {
+
+        int affectRow = itemStockDOMapper.decreaseStock(itemId,amount);//影响的条目数，如果为0的话说明库存不够
+        if(affectRow > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 增加销量操作
+     * @param itemId
+     * @param amount
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional
+    public void increaseSales(Integer itemId, Integer amount) throws BusinessException {
+        itemDOMapper.increaseSales(itemId,amount);
     }
 
     private ItemModel convertModelFromDataObject(ItemDO itemDO,ItemStockDO itemStockDO){

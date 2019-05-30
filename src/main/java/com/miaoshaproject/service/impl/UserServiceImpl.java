@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
         UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDo.getId());
         UserModel userModel = convertDataObject(userDo,userPasswordDO);
         //比对用户信息内加密的密码是否与传输进来的密码相匹配
-        if(userModel.getEncrptPassword() != encrptPassword){
+        if(!StringUtils.equals(userModel.getEncrptPassword(),encrptPassword)){
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
         }
         return userModel;

@@ -31,26 +31,36 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--生成对应表和类名-->
-        <table tableName="user_info" domainObjectName="UserDO" enableCountByExample="false"
-            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-            selectByExampleQueryId="false">
+        <!--<table tableName="user_info" domainObjectName="UserDO" enableCountByExample="false"-->
+            <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+            <!--selectByExampleQueryId="false">-->
 
-        </table>
-        <table tableName="user_password" domainObjectName="UserPasswordDO" enableCountByExample="false"
+        <!--</table>-->
+        <!--<table tableName="user_password" domainObjectName="UserPasswordDO" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+
+        <!--</table>-->
+        <!--&lt;!&ndash;生成对应表和类名&ndash;&gt;-->
+        <!--<table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+
+        <!--</table>-->
+        <!--<table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+
+        <!--</table>-->
+
+        <!--<table tableName="order_info" domainObjectName="orderDO" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <table tableName="sequence_info" domainObjectName="sequenceDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-
-        </table>
-        <!--生成对应表和类名-->
-        <table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-
-        </table>
-        <table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-
         </table>
 
     </context>
