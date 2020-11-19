@@ -7,7 +7,9 @@ import com.miaoshaproject.dataobject.ItemStockDO;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.error.EmBusinessError;
 import com.miaoshaproject.service.ItemService;
+import com.miaoshaproject.service.PromoService;
 import com.miaoshaproject.service.model.ItemModel;
+import com.miaoshaproject.service.model.PromoModel;
 import com.miaoshaproject.service.model.UserModel;
 import com.miaoshaproject.validator.ValidationResult;
 import com.miaoshaproject.validator.ValidatorImpl;
@@ -32,6 +34,8 @@ public class ItemServiceImpl implements ItemService {
     @Autowired(required = false)
     private ItemStockDOMapper itemStockDOMapper;
 
+    @Autowired
+    private PromoService promoService;
     /**
      * 创建item的服务
      * @param itemModel
@@ -109,6 +113,15 @@ public class ItemServiceImpl implements ItemService {
 
         //将dataobject-> itemModel
         ItemModel itemModel = convertModelFromDataObject(itemDO,itemStockDO);
+
+        //获取活动商品信息
+        //通过聚合的方式将秒杀的商品和秒杀的活动 关联在一起
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if(promoModel != null && promoModel.getStatus().intValue()!=3){//如果有活动信息 且起状态在正在进行或者即将开始
+            itemModel.setPromoModel(promoModel);//设置秒杀活动信息
+            return itemModel;
+        }
+
 
         return itemModel;
     }
